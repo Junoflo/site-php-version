@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>welcome to my house</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <style type="text/css">
+        ul > li{
+            font-weight: bold;
+            font-family: "Courier New";
+            margin-left: 70px;
+        }
+        body{
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-container" style="width: 40%">
+
+    <div class="layui-tab" style="height: 10px">
+    </div>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="home">Home</li>
+            <li class="work">Work</li>
+            <li class="life">Life</li>
+            <li class="tag">Tag</li>
+            <li class="layui-this about">About</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 100px;">
+        </div>
+    </div>
+
+</div>
+<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script src="./bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+<script src="./js/mustache.js"></script>
+
+<script type="text/javascript">
+    layui.use('element', function(){
+        var $ = layui.jquery;
+        var li = ["home", "life", "work", "tag", "about"];
+        li.forEach(function (value) {
+            $("." + value).click(function () {
+                console.log(value);
+                location.href = value + ".html";
+            });
+        })
+    });
+</script>
+
+</body>
+</html>

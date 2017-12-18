@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>welcome to my house</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <style type="text/css">
+        ul > li{
+            font-weight: bold;
+            font-family: "Courier New";
+            margin-left: 130px;
+        }
+        body{
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-container" style="width: 60%">
+
+    <div class="layui-tab" style="height: 10px">
+    </div>
+    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+        <ul class="layui-tab-title">
+            <li class="home">Home</li>
+            <li>Work</li>
+            <li class="life">Life</li>
+            <li>Tag</li>
+            <li>About</li>
+        </ul>
+        <div class="layui-tab-content" style="height: 100px;">
+            <table class="layui-hide" id="test" lay-filter="demo"></table>
+            <script type="text/html" id="barDemo">
+                <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="lock">禁用</a>
+                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            </script>
+        </div>
+    </div>
+
+</div>
+<script src="http://code.jquery.com/jquery-3.2.1.js"></script>
+<script src="./layui/layui.js" charset="utf-8"></script>
+<script src="./bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+<script src="./js/mustache.js"></script>
+
+<script type="text/javascript">
+    layui.use(['element', 'table'], function(){
+        var $  = layui.jquery;
+        $(".life").click(function () {
+            location.href = "life.html";
+        })
+        var table = layui.table;
+        //执行一个 table 实例
+        table.render({
+            elem: '#test'
+            ,height: 480
+            ,url: "../controller/ArticleController.php?action=get_all" //数据接口
+            ,page: true //开启分页
+            ,cols: [[ //表头
+                {field: 'id', title: 'ID', width: '10%', align: 'center'}
+                ,{field: 'title', title: '标题', width: '15%',align: 'center'}
+                ,{field: 'author', title: '作者', width: '10%',align: 'center'}
+                ,{field: 'type', title: '类别', width: '10%',align: 'center'}
+                ,{field: 'created', title: '创建时间', width: '15%',align: 'center'}
+                ,{field: 'status', title: '状态', width: '10%',align: 'center'}
+                ,{fixed: 'right', title: '操作', width: '30%',align:'center', toolbar: '#barDemo'}
+            ]]
+        });
+
+        //监听工具条
+        table.on('tool(demo)', function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+                ,layEvent = obj.event; //获得 lay-event 对应的值
+            if(layEvent === 'detail'){
+                location.href = "article.html?id=" + data.id;
+            } else if(layEvent === 'lock'){
+                layer.confirm('真的删除行么', function(index){
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url : "../controller/ArticleController.php",
+                        method : "post",
+                        data : {"action" : "lock_one", "id" : data.id},
+                        dataType : "json",
+                        success : function () {
+                            obj.del();
+                            layer.close(index);
+                        },error : function (data) {
+                            layer.alert("服务器错误..." + data);
+                            console.log(data);
+                        }
+                    })
+                });
+            } else if(layEvent === 'edit'){
+                layer.msg('编辑操作');
+            }else if(layEvent === 'del'){
+                layer.confirm('真的删除行么', function(index){
+                    //向服务端发送删除指令
+                    $.ajax({
+                        url : "../controller/ArticleController.php",
+                        method : "post",
+                        data : {"action" : "delete_one", "id" : data.id},
+                        dataType : "json",
+                        success : function () {
+                            obj.del();
+                            layer.close(index);
+                        },error : function (data) {
+                            layer.alert("服务器错误..." + data);
+                            console.log(data);
+                        }
+                    })
+                });
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
