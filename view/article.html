@@ -8,43 +8,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-    <style type="text/css">
-        ul > li{
-            font-weight: bold;
-            font-family: "Courier New";
-            margin-left: 70px;
-        }
-        body{
-
-        }
-    </style>
+    <link rel='stylesheet' type='text/css' href='./css/style.css'>
 </head>
 <body>
-<div class="layui-container" style="width: 40%">
-
-    <div class="layui-tab" style="height: 10px">
+<div class="layui-container">
+    <div class="layui-row" style="height: 17px">
     </div>
-    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
-        <ul class="layui-tab-title">
-            <li class="home">Home</li>
-            <li class="work">Work</li>
-            <li class="layui-this life">Life</li>
-            <li class="tag">Tag</li>
-            <li class="about">About</li>
-        </ul>
-        <div class="layui-tab-content" style="height: 100px;">
-            <div id="article" style="font-family: 'Courier New';font-size: 16px;">
-            </div>
-            <script id="article-template" type="text/html">
-                <h3 align="center">{{title}}</h3>
-                <p align="center"><span class="text-muted">——{{author}}</span></p>
-                {{{content}}}
-            </script>
-            <div style="height: 200px">
+    <div class="layui-row">
+        <div class="layui-col-xs12">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="home">Home</li>
+                    <li class="work">Work</li>
+                    <li class="layui-this life">Life</li>
+                    <li class="tag">Tag</li>
+                    <li class="about">About</li>
+                </ul>
+                <div class="layui-tab-content" style="height: 100px;">
+                    <div id="article">
+                    </div>
+                    <script id="article-template" type="text/html">
+                        <h3 align="center">{{title}}</h3>
+                        <p align="center"><span class="text-muted">——{{author}}</span></p>
+                        {{{content}}}
+                    </script>
+                    <div style="height: 200px">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
 </div>
 </body>
 <script src="http://code.jquery.com/jquery-3.2.1.js"></script>
@@ -90,6 +83,5 @@
             })
         })
     });
-
 </script>
 </html>

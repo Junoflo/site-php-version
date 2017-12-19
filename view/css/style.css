@@ -1,0 +1,16 @@
+ul > li{
+    font-weight: bold;
+    font-family: "Courier New";
+    margin-left: 130px;
+}
+ul.title > li{
+    font-family: "Courier New";
+    font-size: 17px;
+    margin-top: 17px;
+}
+div#article{
+    font-family: "Courier New";
+    font-size: 17px;
+    width:70%;
+    margin: 0px auto;
+}
